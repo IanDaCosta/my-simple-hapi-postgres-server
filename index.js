@@ -20,22 +20,22 @@ const init = async () => {
 		password: DB_PASSWORD,
 	};
 
-    const server = Hapi.server({
+    const server = hapi.server({
         port: SERVER_PORT,
         host: 'localhost'
     });
     server.route({
         method: 'GET',
         path: SERVER_ENDPOINT,
-        handler: (request, h) => {
-			connection.any('select * FROM testRecords')
-					  .then(data => {
-						return Object.stringify(data);
-					  })
-					  .catch(err => {
-						return `Error ${err}`;
-					  });
-            return 'Hello World!';
+        handler: async (request, h) => {
+			const result = await connection.any('select * FROM testRecords')
+										   .then(data => {
+												return Object.stringify(data);
+										   })
+									       .catch(err => {
+												return `Error ${err}`;
+										   });
+            return result;
         }
     });
 	
