@@ -42,3 +42,10 @@ const init = async () => {
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
+
+console.log('Attempted server start.');
+try {
+  init();
+} catch (e) {
+  console.log(e);
+}
