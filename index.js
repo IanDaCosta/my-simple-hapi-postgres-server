@@ -13,14 +13,15 @@ let connection;
 
 const init = async () => {
 	console.log(`Attempting DB connection to database ${DB_NAME} at ${DB_HOST}:${DB_PORT} with user ${DB_USER}.`);
-	const connectionOptions = {
+	/* const connectionOptions = {
 		host: DB_HOST, // 'localhost' is the default;
 		port: DB_PORT, // 5432 is the default;
 		database: DB_NAME,
 		user: DB_USER,
 		password: DB_PASSWORD,
-	};
-	connection = pgp(connectionOptions);
+	}; */
+	const connectionString = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
+	connection = pgp(connectionString);
     const server = hapi.server({
         port: SERVER_PORT,
         host: 'localhost'
