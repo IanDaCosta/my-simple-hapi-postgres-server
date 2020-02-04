@@ -42,6 +42,14 @@ const init = async () => {
         }
     });
 	
+    server.route({
+        method: 'GET',
+        path: '/',
+        handler: async (request, h) => {
+			return 'I live';
+		}
+    });
+	
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
