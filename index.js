@@ -1,5 +1,5 @@
 const hapi = require('@hapi/hapi');
-const pgp = require('pg-promise');
+const pgp = require('pg-promise')();
 
 const DB_HOST = process.env.DB_HOST;
 const DB_PORT = process.env.DB_PORT;
