@@ -12,14 +12,15 @@ const SERVER_ENDPOINT = process.env.SERVER_ENDPOINT;
 let connection;
 
 const init = async () => {
-	connection = {
+	console.log(`Attempting DB connection to database ${DB_NAME} at ${DB_HOST}:${DB_PORT} with user ${DB_USER}.`);
+	const connectionOptions = {
 		host: DB_HOST, // 'localhost' is the default;
 		port: DB_PORT, // 5432 is the default;
 		database: DB_NAME,
 		user: DB_USER,
 		password: DB_PASSWORD,
 	};
-
+	connection = pgp(connectionOptions);
     const server = hapi.server({
         port: SERVER_PORT,
         host: 'localhost'
@@ -28,7 +29,8 @@ const init = async () => {
         method: 'GET',
         path: SERVER_ENDPOINT,
         handler: async (request, h) => {
-			const result = await connection.any('select * FROM testRecords')
+			console.log('Getting request');
+			const result = await connection.any('select * FROM testRecords;')
 										   .then(data => {
 												return Object.stringify(data);
 										   })
@@ -43,7 +45,7 @@ const init = async () => {
     console.log('Server running on %s', server.info.uri);
 };
 
-console.log('Attempted server start.');
+console.log(`Attempted server start at ${SERVER_ENDPOINT}:${SERVER_PORT}.`);
 try {
   init();
 } catch (e) {
