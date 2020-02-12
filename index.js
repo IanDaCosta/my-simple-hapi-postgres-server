@@ -33,7 +33,7 @@ const init = async () => {
 			console.log('Getting request');
 			const result = await connection.any('select * FROM testRecords;')
 										   .then(data => {
-												return Object.stringify(data);
+												return JSON.stringify(data);
 										   })
 									       .catch(err => {
 												return `Error ${err}`;
