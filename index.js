@@ -24,7 +24,7 @@ const init = async () => {
 	connection = pgp(connectionString);
     const server = hapi.server({
         port: SERVER_PORT,
-        host: 'localhost'
+        host: '0.0.0.0'
     });
     server.route({
         method: 'GET',
